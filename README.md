@@ -1,7 +1,22 @@
-# BroadcastFusion.jl
+# FusibleBroadcasts.jl
 
 An experimental framework for fusing broadcast expressions across arbitrary language constructs (functions, loops, conditionals, and so on). This package is being developed with the goal of minimizing kernel launch cost in `ClimaAtmos.jl`, whose source code contains hundreds of broadcast expressions that could potentially be fused into a much smaller number of kernel launches.
 
-This package exports two macros:
-- `@lazy_dot`: An analogue to `@.` that executes calls to `Base.broadcasted` but drops the final call to `Base.materialize`. This macro be used to split long broadcast expressions into meaningful sub-expressions without sacrificing performance.
-- `@fusible`: An annotation that can be added to method definitions, allowing them to participate in the process of broadcast fusion. As long as the method body satisfies several syntactic constraints, this macro can generate an alternative method definition in which all calls to `Base.materialize!` are replaced with calls to `fused_materialize!`, which stores the output of `@lazy_dot` so that it can later be evaluated in an optimally fused way.
+|||
+|---------------------:|:----------------------------------------------|
+| **Documentation**    | [![dev][docs-dev-img]][docs-dev-url]          |
+| **Docs Build**       | [![docs build][docs-bld-img]][docs-bld-url]   |
+| **GHA CI**           | [![gha ci][gha-ci-img]][gha-ci-url]           |
+| **Code Coverage**    | [![codecov][codecov-img]][codecov-url]        |
+
+[docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
+[docs-dev-url]: https://CliMA.github.io/FusibleBroadcasts.jl/dev/
+
+[docs-bld-img]: https://github.com/CliMA/FusibleBroadcasts.jl/actions/workflows/Documentation.yml/badge.svg
+[docs-bld-url]: https://github.com/CliMA/FusibleBroadcasts.jl/actions/workflows/Documentation.yml
+
+[gha-ci-img]: https://github.com/CliMA/FusibleBroadcasts.jl/actions/workflows/ci.yml/badge.svg
+[gha-ci-url]: https://github.com/CliMA/FusibleBroadcasts.jl/actions/workflows/ci.yml
+
+[codecov-img]: https://codecov.io/gh/CliMA/FusibleBroadcasts.jl/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/CliMA/FusibleBroadcasts.jl
