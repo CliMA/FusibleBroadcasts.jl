@@ -28,7 +28,6 @@ end
     @test_throws "broadcastable" @macroexpand @lazy_dot foo(a) = 1
     @test_throws "broadcastable" @macroexpand @lazy_dot true ? 1 : 2
     @test_throws "broadcastable" @macroexpand @lazy_dot for i in 1:2
-        nothing
     end
 
     @test_throws "assignment" @macroexpand @lazy_dot a = 1 + 2
